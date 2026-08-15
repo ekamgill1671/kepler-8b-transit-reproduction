@@ -8,11 +8,11 @@ To begin looking whether or not this star had a transiting exoplanet, I first se
 
 ## Creating the periodograms
 
-A periodogram (for lightkurve) can calculate the power of different frequencies or periods in a stellar light curve, essentially allowing us to find repeating patterns where is useful when trying to find variable stars, exoplanets, etc.
+A periodogram (for lightkurve) can calculate the power of different frequencies or periods in a stellar light curve, essentially allowing us to find repeating patterns, which is useful when trying to find variable stars, exoplanets, etc.
 
-However, it is important to note that there are two methods we can use for a periodogram: Box Least Squares Method (bls) or Lomb-Scragle. Before we dive into the definition, let's see what happens when we use each! When we used the lomb-scargle method, we see that it peaks at approximately 1.7600 days, while the BLS peaks at around 3.5200, which we also printed in the terminal. We can see that the lomb-scargle periodogram also has a lot of smaller, strange peaks before approaching the biggest peak 1.7600. 
+However, it is important to note that there are two methods we can use for a periodogram: Box Least Squares Method (bls) or Lomb-Scragle. Before we dive into the definition, let's see what happens when we use each! When we used the lomb-scargle method, we see that it peaks at approximately 1.7600 days, while the BLS peaks at around 3.5200, which we also printed in the terminal. We can see that the lomb-scargle periodogram also has a lot of strange peaks, not showing a consistent high peak.
 
-This is because the lomb-scragle method is asking: "At what period does a sinusoidal model fit the data best?" Lomb-scargle tries different frquencies and tries to find how well a sinusoidla model can explan a certain obseration at this frequency. Per frequency, it calculates a measure of how much better that periodic model explains the data. If there is a high peak, it is stating that there is strong evidence that a periodic sinusodial component exists around this frequency. This is why in our image we have multiple high peaks instead of one consistent one like a planet does when it transits. 
+The Lomb–Scargle method asks, “At what frequency does a sinusoidal model best fit the data?” It tests different frequencies and measures how well a sinusoidal model explains the observations at each one. A higher peak indicates stronger evidence for a periodic signal at that frequency. Because Lomb–Scargle searches for sinusoidal variations rather than transit-shaped dips, it can produce multiple prominent peaks from harmonics of the underlying signal, causing it to be hard to figure out when the planet transits. 
 
 
 
