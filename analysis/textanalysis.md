@@ -30,17 +30,31 @@ To conclude, that is why I am going to use the BLS method for the rest of the da
 
 ## Further Cleaning the Lightcurve
 
-Understanding why transiting exoplanets rely on BLS rather then the Lomb-Scarlge method, I began to test out "folding" the lightcurve. Folding the Lightkurve stacks the light-curve cycles on top of one another using a specified orbital period. Here, I use the period with the highest power in the periodogram, approximately 3.520 days, because it is the period that best explains the repeating pattern in the data. By folding the data at this period, observations from different orbital cycles line up, making the repeated transit easier to see and allowing me to analyze its shape and depth more clearly. 
+
+Understanding why transiting exoplanets rely on BLS rather then the Lomb-Scarlge method, I began to test out "folding" the lightcurve. Folding the Lightkurve stacks the light-curve cycles on top of one another using a specified orbital period. Here, I use the period with the highest power in the periodogram, approximately 3.520 days, because it is the period that best explains the repeating pattern in the data. Folding the lightkurve is useful because it converts the observation times into orbital phase using the approximately period found by BLS, measurements from different transits can be aligned. The individual transit signals then overlap, making the overall shape and depth easier to measure
+
+Because the planet blocks part of the star's visible surface, the measured flux decreases slightly during the transit. When the planet moves past the star, the flux returns to approximately its original level. The transit therefore appears in the light curve as a relatively short, repeated decrease in brightness. The time between these repeated transits gives information about the planet's orbital period, while the depth of the dip contains information about the relative sizes of the planet and its host star.
 
 What happens when I plot the light curve? The resulting graph shows a clear, repeated dip in the brightness of exoplanet KIC 6922244, which is consistent with a transit. When I folded the light curve, Lightkurve used the orbital period I found earlier, 3.520 days, to transform the observation times into orbital phase. This allows measurements from different orbital cycles to be placed at the same phase and compared with one another. The result is a much clearer view of the transit because observations from multiple cycles are effectively stacked together. The decrease in normalized flux is consistent with a planet passing in front of its host star (Kepler 8-b) and blocking a small amount of starlight.
 
-However, the light curve can still be cleaner. That is why I used Lightkurve's flatten() function with a window_length of 401 to remove slow, low-frequency variations in the stellar light curve while preserving the planet's transit signal. The window_length determines the timescale over which the underlying trend is estimated. A value of 401 provides a relatively broad smoothing window, allowing the function to remove gradual changes in the light curve without following the short-duration planetary transit too closely. This helps keep the transit depth and shape visible for further analysis. 
+However, the light curve can still be cleaner. That is why I used Lightkurve's flatten() function with a window_length of 401 to remove slow, low-frequency variations in the stellar light curve while preserving the planet's transit signal. The window_length determines the timescale over which the underlying trend is estimated. 
 
-After folding the light curve, I binned the measurements using a time_bin_size of 0.01. This combines nearby measurements and calculates a representative median flux, reducing random scatter while retaining enough resolution to preserve the shape of the transit.
+But why 401, what would happen if I chose different window_length values? Is there a differnece? To test this, I tried several different window_length values and compared how the flattened light curve changed. The window_length controls how much of the surrounding light curve is used to estimate the underlying trend. A smaller window allows the flattening filter to respond to shorter-term variations, while a larger window produces a smoother estimate that mainly follows longer-term changes.
+
+| Window length | Transit depth |
+| ------------: | ------------: |
+|           101 |        0.585% |
+|           201 |        0.775% |
+|           401 |        0.818% |
+|           801 |        0.859% |
+
+The measured depth changed from a 0.585% all the way to 0.859%, a difference of about 47% relative to the 101-window measurement. That's something that can't be ignored! THe general pattern also seems to be that as the window_length increases, so does the transit depth. The measured transit is becoming progressively deeper, because the larger windows are less able to follow the short transit. The larger window length captures the slower background trend, leaving more of the actual transit signal intact. I therefore need to choose a window that removes the underlying trends without changing the transit signal itself. I used 401 as a compromise because it removes the slower variations while preserving a clear transit signal, without relying on the most extreme window length teste
+
+After flattening the light curve at a window_length of 401, I binned the measurements using a time_bin_size of 0.01. This combines nearby measurements and calculates a representative median flux, reducing random scatter while retaining enough resolution to preserve the shape of the transit.
 
 Comparing the original and processed light curves shows that folding and binning make the repeating transit signal much easier to identify. The individual measurements in the original light curve contain substantial scatter and long-term variations, whereas the folded and binned light curve combines observations from multiple orbital cycles into a clearer representation of the transit.
 
-But what would happen if I chose different window_lengths? Is there a differnece? 
+
 
 
 
