@@ -36,12 +36,11 @@ What happens when I plot the light curve? The resulting graph shows a clear, rep
 
 However, the light curve can still be cleaner. That is why I used Lightkurve's flatten() function with a window_length of 401 to remove slow, low-frequency variations in the stellar light curve while preserving the planet's transit signal. The window_length determines the timescale over which the underlying trend is estimated. A value of 401 provides a relatively broad smoothing window, allowing the function to remove gradual changes in the light curve without following the short-duration planetary transit too closely. This helps keep the transit depth and shape visible for further analysis. 
 
-But would happen if I changed the window_length around? If the window were to be any smaller, the flattening filter would follow variations happening on shorter timescales and potentially distoret or reduce the transit. A larger window is less likely to treat the transit itself as part of the background trend. 
-
 After folding the light curve, I binned the measurements using a time_bin_size of 0.01. This combines nearby measurements and calculates a representative median flux, reducing random scatter while retaining enough resolution to preserve the shape of the transit.
 
-You can tell there is a great difference between just the regular light curve and the folded plus binned light curve. The data is much easier to see and it is more appealing to look at withour random data points/trends interfering with observing the planetary transit. 
+Comparing the original and processed light curves shows that folding and binning make the repeating transit signal much easier to identify. The individual measurements in the original light curve contain substantial scatter and long-term variations, whereas the folded and binned light curve combines observations from multiple orbital cycles into a clearer representation of the transit.
 
+But what would happen if I chose different window_lengths? Is there a differnece? 
 
 
 
