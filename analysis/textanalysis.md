@@ -26,31 +26,36 @@ So, the reason the BLS method is used rather than lomb-scargle as transiting exo
 
 To conclude, that is why I am going to use the BLS method for the rest of the data that I will be analyzing.
 
-*need to explain period_at_max_power
-
 ## Further Cleaning the Lightcurve
 
-
-Understanding why transiting exoplanets rely on BLS rather then the Lomb-Scarlge method, I began to test out "folding" the lightcurve. Folding the Lightkurve stacks the light-curve cycles on top of one another using a specified orbital period. Here, I use the period with the highest power in the periodogram, approximately 3.520 days, because it is the period that best explains the repeating pattern in the data. Folding the lightkurve is useful because it converts the observation times into orbital phase using the approximately period found by BLS, measurements from different transits can be aligned. The individual transit signals then overlap, making the overall shape and depth easier to measure
+Understanding why transiting exoplanets rely on BLS rather then the Lomb-Scarlge method, I began to test out "folding" the lightcurve. Folding the Lightkurve stacks the light-curve cycles on top of one another using a specified orbital period. Here, I use the period with the highest power in the periodogram, approximately 3.520 days, because it is the period that best explains the repeating pattern in the data. Folding the lightkurve is useful because it converts the observation times into orbital phase using the approximately period found by BLS, measurements from different transits can be aligned. The individual transit signals then overlap, making the overall shape and depth easier to measure. I also use the transit time corresponding to the maximum BLS power, t0_bls, as the reference time when folding the light curve. This places the center of the detected transit at approximately phase 0. Folding converts the observation times into orbital phase, allowing measurements from different transits to be aligned. The individual transit signals then overlap, making the overall transit shape and depth easier to see and measure.
 
 Because the planet blocks part of the star's visible surface, the measured flux decreases slightly during the transit. When the planet moves past the star, the flux returns to approximately its original level. The transit therefore appears in the light curve as a relatively short, repeated decrease in brightness. The time between these repeated transits gives information about the planet's orbital period, while the depth of the dip contains information about the relative sizes of the planet and its host star.
 
-What happens when I plot the light curve? The resulting graph shows a clear, repeated dip in the brightness of exoplanet KIC 6922244, which is consistent with a transit. When I folded the light curve, Lightkurve used the orbital period I found earlier, 3.520 days, to transform the observation times into orbital phase. This allows measurements from different orbital cycles to be placed at the same phase and compared with one another. The result is a much clearer view of the transit because observations from multiple cycles are effectively stacked together. The decrease in normalized flux is consistent with a planet passing in front of its host star (Kepler 8-b) and blocking a small amount of starlight.
+What happens when I plot the light curve? The resulting graph shows a clear, repeated dip in the brightness of exoplanet KIC 6922244, which is consistent with a transit. When I folded the light curve, Lightkurve used the orbital period I found earlier, 3.520 days, to transform the observation times into orbital phase. This allows measurements from different orbital cycles to be placed at the same phase and compared with one another. The result is a much clearer view of the transit because observations from multiple cycles are effectively stacked together. The decrease in normalized flux is consistent with a planet passing in front of its host star (Kepler 8-b) and blocking a small amount of starlight. -- talk about t0_bls results too
 
 However, the light curve can still be cleaner. That is why I used Lightkurve's flatten() function with a window_length of 401 to remove slow, low-frequency variations in the stellar light curve while preserving the planet's transit signal. The window_length determines the timescale over which the underlying trend is estimated. 
 
-But why 401, what would happen if I chose different window_length values? Is there a differnece? To test this, I tried several different window_length values and compared how the flattened light curve changed. The window_length controls how much of the surrounding light curve is used to estimate the underlying trend. A smaller window allows the flattening filter to respond to shorter-term variations, while a larger window produces a smoother estimate that mainly follows longer-term changes.
+After flattening the light curve using a window_length of 401, I binned the folded measurements using a time_bin_size of 0.01. This combines nearby measurements within small phase intervals and calculates the median flux in each bin. Binning reduces the effect of random scatter while retaining enough resolution to preserve the shape and depth of the transit. I chose 0.01 as a comprompise because smaller than 0.01 would have more indiviudal scatter remains but a larger (e.g. 0.05) time_bin_size would cause the graph to lose details about the transit depth
+
+But why should time_bin_size = 0.01? Why not a different number?
+
+But why 401, what would happen if I chose different window_length values? Is there a difference? To test this, I flattened the light curve using several different window_length values and compared the resulting transit depths. The window_length controls the timescale over which Lightkurve estimates the underlying trend in the light curve. A smaller window allows the flattening filter to respond to shorter-term variations, while a larger window produces a smoother estimate that primarily follows longer-term variations.
 
 | Window length | Transit depth |
 | ------------: | ------------: |
-|           101 |        0.585% |
-|           201 |        0.775% |
-|           401 |        0.818% |
-|           801 |        0.859% |
+|           101 |        place% |
+|           201 |        place% |
+|           401 |        place% |
+|           801 |        place% |
 
-The measured depth changed from a 0.585% all the way to 0.859%, a difference of about 47% relative to the 101-window measurement. That's something that can't be ignored! THe general pattern also seems to be that as the window_length increases, so does the transit depth. The measured transit is becoming progressively deeper, because the larger windows are less able to follow the short transit. The larger window length captures the slower background trend, leaving more of the actual transit signal intact. I therefore need to choose a window that removes the underlying trends without changing the transit signal itself. I used 401 as a compromise because it removes the slower variations while preserving a clear transit signal, without relying on the most extreme window length teste
+The measured transit depth increased from 0.585% for a window of 101 to 0.859% for a window of 801. This is an increase of approximately 47% relative to the 101-window measurement. The results show that the measured transit depth depends on the choice of flattening window. As the window length increases, the estimated background trend becomes smoother and less responsive to short-timescale features such as the transit. This leaves more of the transit signal in the flattened light curve, resulting in a deeper measured transit.
 
-After flattening the light curve at a window_length of 401, I binned the measurements using a time_bin_size of 0.01. This combines nearby measurements and calculates a representative median flux, reducing random scatter while retaining enough resolution to preserve the shape of the transit.
+I selected 401 as a compromise between the smaller and larger window lengths. It removes the slower variations in the light curve while retaining a clear transit signal, without relying on the largest window tested. This choice is also supported by the fact that the transit remains clearly visible while avoiding the more extreme depth measured with a window of 801. The dependence of the measured depth on the window length is an important source of uncertainty in this analysis.
+
+Folding places observations from different orbital cycles on the same phase scale, with the center of the transit located at phase 0.
+
+Comparing the original and processed light curves shows that folding and binning make the repeating transit signal much easier to identify. The original light curve contains substantial scatter and longer-term variations, while folding places observations from multiple orbital cycles on the same phase scale. Binning then reduces the scatter, producing a clearer representation of the transit that is easier to measure.
 
 Comparing the original and processed light curves shows that folding and binning make the repeating transit signal much easier to identify. The individual measurements in the original light curve contain substantial scatter and long-term variations, whereas the folded and binned light curve combines observations from multiple orbital cycles into a clearer representation of the transit.
 
