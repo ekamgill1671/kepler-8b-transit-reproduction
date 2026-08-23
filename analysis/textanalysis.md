@@ -26,13 +26,15 @@ So, the reason the BLS method is used rather than lomb-scargle as transiting exo
 
 To conclude, that is why I am going to use the BLS method for the rest of the data that I will be analyzing.
 
-## Further Cleaning the Lightcurve
+## Folding the Light Curve
 
 Understanding why transiting exoplanets rely on BLS rather then the Lomb-Scarlge method, I began to test out "folding" the lightcurve. Folding the Lightkurve stacks the light-curve cycles on top of one another using a specified orbital period. Here, I use the period with the highest power in the periodogram, approximately 3.520 days, because it is the period that best explains the repeating pattern in the data. Folding the lightkurve is useful because it converts the observation times into orbital phase using the approximately period found by BLS, measurements from different transits can be aligned. The individual transit signals then overlap, making the overall shape and depth easier to measure. I also use the transit time corresponding to the maximum BLS power, t0_bls, as the reference time when folding the light curve. This places the center of the detected transit at approximately phase 0. Folding converts the observation times into orbital phase, allowing measurements from different transits to be aligned. The individual transit signals then overlap, making the overall transit shape and depth easier to see and measure.
 
 Because the planet blocks part of the star's visible surface, the measured flux decreases slightly during the transit. When the planet moves past the star, the flux returns to approximately its original level. The transit therefore appears in the light curve as a relatively short, repeated decrease in brightness. The time between these repeated transits gives information about the planet's orbital period, while the depth of the dip contains information about the relative sizes of the planet and its host star.
 
 Before any processing, the raw light curve is dominated by stellar noise — slow brightness variations from things like star spots rotating in and out of view, instrumental drift, and other systematic effects that have nothing to do with the transiting planet. Against this noisy baseline, a transit signal as shallow as Kepler-8b's is difficult to pick out by eye; the dip is often smaller than the scatter in the surrounding data points.
+
+# Flattening the Light Curve
 
 Flattening removes these slow, large-scale trends by fitting and subtracting out the star's own long-term brightness variations, leaving behind a light curve centered around a flat baseline. Binning then averages groups of nearby data points together (using the `time_bin_size` discussed above), reducing point-to-point scatter without erasing the transit shape itself.
 
@@ -44,12 +46,13 @@ The result is a much clearer transit signal, since data from many individual cyc
 
 The BLS search also returned a best-fit transit epoch, `t0_bls = 353.6118820626667`, which marks the reference time (in the same time system as the Kepler data, typically BKJD (Barycentric Kepler Julian Date)) of one specific transit center used to anchor the phase-folding. Every other transit in the dataset is phased relative to this value combined with the orbital period — get either one wrong, and the folded transits would land at slightly different phases instead of stacking cleanly, smearing out the same dip your binning analysis was trying to avoid. --double check this
 
+# Testing Flattening Window Lengths & Binning the Folded Light Curve
 
 But why should time_bin_size = 0.01? Why not a different number, and why is binning important? The parameter time_bin_size averages all the data points that fall within each time window (in days, since that's Lightkurve's default unit) to reduce noise and make the transit shape easier to see. A time_bin_size = 0.01 means you're averaging together every data point within a 0.01-day (~14.4 minute) window into a single point. I chose values for the time_bin_size ranging from 0.0001 all the way up to 1.0. As the number got larger, the stellar noise started to diminish. However, choosing a value that is too large like 1.0 smears out the shape of the transit. On the other hand, as the number gets smaller, the stellar noise becomes more prominent because most of the data points are barely averaging anything, keeping the stellar noise. So, a small bin sizes makes the transit shape eaiser to see, but at the cost of a noiser-looking light curve overall. Given Kepler-8b's transit duration of a few hours, I settled on 0.01 days (~14 minutes) as a middle ground since it is small enough to preserve the transit's shape, but large enough to reduce the stellar noise. 
 
 Going along with this, why is the window_length equal to 401? What would happen if I chose different window_length values? Is there a difference? To test this, I flattened the light curve using four different window_length values: 101, 201, 401, and 801. The window_length controls the timescale over which Lightkurve estimates the underlying trend in the light curve. Smaller windows allow the flattening filter to respond to shorter-term variations, while larger windows produce a smoother estimate that primarily follows longer-term variations.
 
-I then measured the transit depth for each flattened light curve using the same phase regions. Since I folded the light curve using the BLS-determined transit epoch, the center of the transit occurs at phase 0. I defined the central in-transit region as −0.02<phase<0.02 and the out-of-transit region as phase <−0.1 or phase>0.1. The median flux in each region was used to estimate the typical in-transit and out-of-transit brightness. 
+I then measured the transit depth for each flattened light curve using the same phase regions. Since I folded the light curve using the BLS-determined transit epoch, the center of the transit occurs at phase 0. I defined the central in-transit region as −0.02<phase<0.02 and the out-of-transit region as phase <−0.1 or phase>0.1. The median flux in each region was used to estimate the typical in-transit and out-of-transit brightness. I then calculating the median flux within each region to obtain representative values for the in-transit and the out-of-out transit brightness by using the following equation: δ = = F out - F in/ F out, depending on the value of the window length used, the transit depth changed. 
 
 | Window length | Transit depth |
 | --------------||--------------|
@@ -64,9 +67,14 @@ As the window length increases, the estimated background trend becomes smoother 
 
 This difference can be seen in the resulting light curves. The transit appears shallower with a window length of 101 and progressively deeper as the window length increases, with the deepest measured transit occurring at 801. This demonstrates that the choice of window_length can have a significant effect on the measured transit depth and is therefore an important source of uncertainty.
 
-So, I selected a window_length of 401 as a compromise between the smaller and larger windows tested. It removes the slower variations in the light curve while retaining a clear transit signal. The comparison also demonstrates that the choice of detrending window is an important source of uncertainty in this analysis.
+So, I selected a window_length of 401 as a compromise between the smaller and larger windows tested. It removes the slower variations in the light curve while retaining a clear transit signal. The comparison also demonstrates that the choice of detrending window is an important source of uncertainty in this analysis. The transit depth of window_length 401 is 0.819%, 
 
 
+# Calculating Rp/Rstar
+
+After folding and flattening the light curve, I can use the equation Rp/R* = √δ, where the ratio of the planet's radius (Rp) to the star's radius (R*) equals the square root of the transit depth (δ), the fraction of starlight lost when the planet blocks part of the star's disk. This equation lets me estimate the relative size of Kepler-8b compared to its host star, KIC 6922244.
+
+Using this relationship, I found a radius ratio (Rp/R*) of 0.090, meaning Kepler-8b's radius is about 9.0% of its host star's radius. This value connects directly back to the transit depth: since Rp/R* = √δ, squaring the radius ratio gives back the depth, 0.090² = 0.0081, or 0.81%. In other words, a radius ratio of 0.090 corresponds to a transit depth of about 0.81%, meaning Kepler-8b blocks roughly 0.8% of its host star's light during each transit.
 
 
 
