@@ -76,6 +76,15 @@ After folding and flattening the light curve, I can use the equation Rp/R* = √
 
 Using this relationship, I found a radius ratio (Rp/R*) of 0.090, meaning Kepler-8b's radius is about 9.0% of its host star's radius. This value connects directly back to the transit depth: since Rp/R* = √δ, squaring the radius ratio gives back the depth, 0.090² = 0.0081, or 0.81%. In other words, a radius ratio of 0.090 corresponds to a transit depth of about 0.81%, meaning Kepler-8b blocks roughly 0.8% of its host star's light during each transit.
 
+# Calculating Planet Radius
+
+The radius ratio gives the size of Kepler-8b relative to its host star, but it does not give the planet's physical radius by itself. To estimate the planet's actual radius, I need the published radius of the host star, Kepler-8.
+
+So, I used a published stellar radius of 1.56 according to The NASA Exoplanet Archieve since it is associated with the Kepler-8 parameters listed in the Archieve. I then can use the following equation of Rp (absolute physical radius of a planet) =  Rp/R* (the planet-to-star radius ratio, which we found to be 0.090) multiplied by the physical radius of the host star. This value would give our planet radius to be 0.1404; however, the solar units need to be converted into jupiter radii for a familar, readable scale. After converting, the radius of exoplanet KIC-6922244 is 1.405 * the Radii of Jupiter, which gives a radius of 98,000 km. This is about roughly 15.4 times the radius of Earth. The pubblished radius of Kepler-8b is approximately 1.419, which means my approximatation is close. 
+
+I can then calculate the percentage difference between the published value of exoplanet KIC-6922244 and the one that I calculated. This can be done by taking the absolute value of the planet_radius value I calculated and subtracting it by the published_planet_radius and dividing that by the published_planet_radius and then multiplying it by 100. My estimated radius differed from the published value by approximately 1.021%. This relatively small difference suggests that the transit depth measured from the Quarter 4 Kepler data produced a planetary radius that is close to the published value. The remaining difference may be caused by uncertainties in the measured transit depth, the choice of flattening window, the defnitio of the in-transit and out-of-transit regions, the use of a single Kepler quarter, and uncertainty in the adopted stellar radius. 
+
+
 
 
 

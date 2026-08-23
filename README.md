@@ -27,10 +27,6 @@ Data source: MAST
 The light curve was downloaded using the Python package
 Lightkurve.
 
-# Limitations
-
-This analysis has several limitations. First, I used only Kepler Quarter 4 rather than the complete available Kepler dataset. Second, the measured transit depth depends on the choice of flattening window, as demonstrated by the window-length experiment. The choice of phase boundaries used to define the in-transit and out-of-transit regions may also affect the measured depth. In addition, Kepler's long-cadence observations provide limited time resolution compared with the actual duration of the transit. Finally, the planetary radius estimate depends directly on the adopted stellar radius, so uncertainty in the stellar parameters contributes to uncertainty in the planet-radius estimate.
-
 # Methods
 
 I used Kepler Quarter 4 long-cadence observations of KIC 6922244, the host star of Kepler-8b, and analyzed the data using Python and Lightkurve.
@@ -52,6 +48,12 @@ The analysis followed these steps:
 13. Compared the estimated planetary radius with the published value.
 
 # Results
+
+# Figures 
+
+## Limitations
+
+This analysis has several limitations. First, I used only Kepler Quarter 4 rather than the complete available Kepler dataset. Second, the measured transit depth depends on the choice of flattening window, as demonstrated by the window-length experiment. The choice of phase boundaries used to define the in-transit and out-of-transit regions may also affect the measured depth. In addition, Kepler's long-cadence observations provide limited time resolution compared with the actual duration of the transit. Finally, the planetary radius estimate depends directly on the adopted stellar radius, so uncertainty in the stellar parameters contributes to uncertainty in the planet-radius estimate.
 
 
 # Software
