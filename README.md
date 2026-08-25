@@ -56,11 +56,7 @@ After flattening the light curve with a window length of 401, folding the observ
 Using the relationship Rp/Rstar = √depth,  I estimated a planet-to-star radius ratio of:
 Rp/Rstar = 0.090
 
-This indicates that the radius of Kepler-8b is approximately 9% of the radius of its host star.
-
-Using a published stellar radius of 1.56 R☉, I estimated the physical radius of Kepler-8b to be approximately 1.405J R_J.
-
-The published radius of Kepler-8b is 1.419 R_J. My estimated radius differed from the published value by approximately 1.021%.
+This indicates that the radius of Kepler-8b is approximately 9% of the radius of its host star. Using a published stellar radius of 1.56 R☉, I estimated the physical radius of Kepler-8b to be approximately 1.405J R_J. The published radius of Kepler-8b is 1.419 R_J. My estimated radius differed from the published value by approximately 1.021%.
 
 Overall, this analysis successfully reproduced the main transit properties of Kepler-8b using Kepler Quarter 4 observations and a simplified Lightkurve-based analysis.
 
@@ -70,10 +66,12 @@ Overall, this analysis successfully reproduced the main transit properties of Ke
 
 **Figure 1.** Folded and binned light curve of Kepler-8b using a flattening window of 401 and a time bin size of 0.01. The transit is centered near orbital phase 0. The dashed lines indicate the median in-transit and out-of-transit fluxes used to calculate the transit depth.
 
-## Limitations
+# Limitations
 
 This analysis has several limitations. First, I used only Kepler Quarter 4 rather than the complete available Kepler dataset. Second, the measured transit depth depends on the choice of flattening window, as demonstrated by the window-length experiment. The choice of phase boundaries used to define the in-transit and out-of-transit regions may also affect the measured depth. In addition, Kepler's long-cadence observations provide limited time resolution compared with the actual duration of the transit. Finally, the planetary radius estimate depends directly on the adopted stellar radius, so uncertainty in the stellar parameters contributes to uncertainty in the planet-radius estimate.
 
+# Data & acknowledgments
+This project makes use of data and services provided by the NASA Exoplanet Archive, operated by the California Institute of Technology under contract with NASA's Exoplanet Exploration Program. Kepler data were obtained from the Mikulski Archive for Space Telescopes (MAST).
 
 # Software
 
