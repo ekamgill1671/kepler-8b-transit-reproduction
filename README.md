@@ -2,11 +2,11 @@
 
 This project attempts to reproduce basic published properties
 of the exoplanet Kepler-8b using publicly available Kepler
-photometric data. This is purely for personal practice to obsere real astronomical data and lightcurves with exoplanets.
+photometric data. This is purely for personal practice to observe real astronomical data and light curves with exoplanets.
 
 The primary goals are to:
 
-- recover the orbital period using Box Least Squares (BLS)
+- recover the orbital period using Box-Least Squares (BLS)
 - measure the transit depth
 - estimate the planet-to-star radius ratio
 - estimate the planet's radius
@@ -35,7 +35,7 @@ The analysis followed these steps:
 
 1. Downloaded the Kepler light curve using Lightkurve.
 2. Removed NaN values and extreme outliers and normalized the flux.
-3. Used a Box Least Squares (BLS) periodogram to search for the repeating transit signal.
+3. Used a Box-Least Squares (BLS) periodogram to search for the repeating transit signal.
 4. Identified the orbital period corresponding to the maximum BLS power and the associated transit epoch.
 5. Flattened the light curve to remove long-term variations in the stellar brightness.
 6. Tested several flattening window lengths (101, 201, 401, and 801) to determine how the choice of detrending timescale affected the measured transit depth.
@@ -49,7 +49,7 @@ The analysis followed these steps:
 
 # Results
 
-Using a Box Least Squares periodogram, I recovered an orbital period of approximately 3.520 days for Kepler-8b. This is close to the published orbital period of approximately 3.523 days.
+Using a Box-Least Squares periodogram, I recovered an orbital period of approximately 3.520 days for Kepler-8b. This is close to the published orbital period of approximately 3.523 days.
 
 After flattening the light curve with a window length of 401, folding the observations using the BLS period and transit epoch, and binning the folded light curve with a time_bin_size of 0.01, I measured a transit depth of approximately 0.819%.
 
@@ -75,6 +75,7 @@ This estimate differs from the published radius of 1.419 Jupiter radii by only a
 # Figures 
 
 ![Kepler-8b Transit](figures/final_kepler8b_transit.png)
+
 **Figure 1.** Folded and binned light curve of Kepler-8b using a flattening window of 401 and a time bin size of 0.01. The transit is centered near orbital phase 0. The dashed lines indicate the median in-transit and out-of-transit fluxes used to calculate the transit depth.
 
 ## Limitations
@@ -87,6 +88,5 @@ This analysis has several limitations. First, I used only Kepler Quarter 4 rathe
 - Python
 - NumPy
 - Matplotlib
-- pandas
-- Astropy
+- Jupyter notebook
 - Lightkurve
