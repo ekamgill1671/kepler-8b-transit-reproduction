@@ -64,14 +64,6 @@ The published radius of Kepler-8b is 1.419 R_J. My estimated radius differed fro
 
 Overall, this analysis successfully reproduced the main transit properties of Kepler-8b using Kepler Quarter 4 observations and a simplified Lightkurve-based analysis.
 
-# Conclusion
-
-Using Kepler Quarter 4 observations of Kepler-8, I used a Box Least Squares periodogram to recover the planet's approximately 3.52-day orbital period. I then folded, flattened, and binned the light curve to make the repeating transit easier to measure.
-
-From the measured transit depth of approximately 0.819%, I calculated a planet-to-star radius ratio of approximately 0.090. Using a published stellar radius of 1.56 solar radii, I estimated a physical radius of approximately 1.404 Jupiter radii for Kepler-8b.
-
-This estimate differs from the published radius of 1.419 Jupiter radii by only approximately 1.021%. Although the analysis uses only one quarter of Kepler data and makes several methodological choices that affect the measured transit depth, the result reasonably reproduces the published properties of Kepler-8b.
-
 # Figures 
 
 ![Kepler-8b Transit](figures/final_kepler8b_transit.png)
