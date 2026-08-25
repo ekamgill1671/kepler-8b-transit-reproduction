@@ -49,7 +49,33 @@ The analysis followed these steps:
 
 # Results
 
+Using a Box Least Squares periodogram, I recovered an orbital period of approximately 3.520 days for Kepler-8b. This is close to the published orbital period of approximately 3.523 days.
+
+After flattening the light curve with a window length of 401, folding the observations using the BLS period and transit epoch, and binning the folded light curve with a time_bin_size of 0.01, I measured a transit depth of approximately 0.819%.
+
+Using the relationship Rp/Rstar = √depth,  I estimated a planet-to-star radius ratio of:
+Rp/Rstar = 0.090
+
+This indicates that the radius of Kepler-8b is approximately 9% of the radius of its host star.
+
+Using a published stellar radius of 1.56 R☉, I estimated the physical radius of Kepler-8b to be approximately 1.405J R_J.
+
+The published radius of Kepler-8b is 1.419 R_J. My estimated radius differed from the published value by approximately 1.021%.
+
+Overall, this analysis successfully reproduced the main transit properties of Kepler-8b using Kepler Quarter 4 observations and a simplified Lightkurve-based analysis.
+
+# Conclusion
+
+Using Kepler Quarter 4 observations of Kepler-8, I used a Box Least Squares periodogram to recover the planet's approximately 3.52-day orbital period. I then folded, flattened, and binned the light curve to make the repeating transit easier to measure.
+
+From the measured transit depth of approximately 0.819%, I calculated a planet-to-star radius ratio of approximately 0.090. Using a published stellar radius of 1.56 solar radii, I estimated a physical radius of approximately 1.404 Jupiter radii for Kepler-8b.
+
+This estimate differs from the published radius of 1.419 Jupiter radii by only approximately 1.021%. Although the analysis uses only one quarter of Kepler data and makes several methodological choices that affect the measured transit depth, the result reasonably reproduces the published properties of Kepler-8b.
+
 # Figures 
+
+![Kepler-8b Transit](figures/final_kepler8b_transit.png)
+**Figure 1.** Folded and binned light curve of Kepler-8b using a flattening window of 401 and a time bin size of 0.01. The transit is centered near orbital phase 0. The dashed lines indicate the median in-transit and out-of-transit fluxes used to calculate the transit depth.
 
 ## Limitations
 
