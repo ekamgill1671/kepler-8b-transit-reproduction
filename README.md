@@ -2,7 +2,7 @@
 
 This project attempts to reproduce basic published properties
 of the exoplanet Kepler-8b using publicly available Kepler
-photometric data. This is purely for personal practice to observe real astronomical data and light curves with exoplanets.
+photometric data. This is an independent practice project using real astronomical data and exoplanet light curves
 
 The primary goals are to:
 
