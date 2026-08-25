@@ -24,8 +24,7 @@ Cadence: Long cadence
 
 Data source: MAST
 
-The light curve was downloaded using the Python package
-Lightkurve.
+The light curve was downloaded using the Python package Lightkurve.
 
 # Methods
 
@@ -80,3 +79,4 @@ This project makes use of data and services provided by the NASA Exoplanet Archi
 - Matplotlib
 - Jupyter notebook
 - Lightkurve
+- Astropy
