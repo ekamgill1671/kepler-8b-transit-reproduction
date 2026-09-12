@@ -1,7 +1,7 @@
 # Objective
 
 This project attempts to reproduce basic published properties
-of the exoplanet Kepler-8b using publicly available Kepler
+of the exoplanet KIC 6922244 from the star Kepler-8b using publicly available Kepler
 photometric data. This is an independent practice project using real astronomical data and exoplanet light curves
 
 The primary goals are to:
@@ -48,7 +48,7 @@ The analysis followed these steps:
 
 # Results
 
-Using a Box-Least Squares periodogram, I recovered an orbital period of approximately 3.520 days for Kepler-8b. This is close to the published orbital period of approximately 3.523 days.
+Using a Box-Least Squares periodogram, I recovered an orbital period of approximately 3.520 days for KIC 6922244. This is close to the published orbital period of approximately 3.523 days.
 
 After flattening the light curve with a window length of 401, folding the observations using the BLS period and transit epoch, and binning the folded light curve with a time_bin_size of 0.01, I measured a transit depth of approximately 0.819%.
 
