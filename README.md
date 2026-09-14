@@ -11,6 +11,7 @@ The primary goals are to:
 - estimate the planet-to-star radius ratio
 - estimate the planet's radius
 - compare the results with published values
+- compare different quarters
 
 # Data
 
@@ -18,7 +19,7 @@ Kepler target: KIC 6922244
 
 Mission: Kepler
 
-Quarter: 4
+Quarter: 4 (initally)
 
 Cadence: Long cadence
 
@@ -56,6 +57,8 @@ Using the relationship Rp/Rstar = √depth,  I estimated a planet-to-star radius
 Rp/Rstar = 0.090
 
 This indicates that the radius of Kepler-8b is approximately 9% of the radius of its host star. Using a published stellar radius of 1.56 R☉, I estimated the physical radius of Kepler-8b to be approximately 1.405J R_J. The published radius of Kepler-8b is 1.419 R_J. My estimated radius differed from the published value by approximately 1.021%.
+
+When using different quarters of Kepler-8b, the orbital period reamined the same while the transit depth varied by around ~30% across 18 quarters. I decided to use quarter 4 due to its optimal data quality, as seen in the graph. 
 
 Overall, this analysis successfully reproduced the main transit properties of Kepler-8b using Kepler Quarter 4 observations and a simplified Lightkurve-based analysis.
 

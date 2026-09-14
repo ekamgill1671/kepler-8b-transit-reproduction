@@ -82,6 +82,37 @@ The radius ratio gives the size of KIC 6922244 relative to its host star, but it
 
 I can then calculate the percentage difference between the published value of exoplanet KIC-6922244 and the one that I calculated. This can be done by taking the absolute value of the planet_radius value I calculated and subtracting it from the published_planet_radius, dividing that by the published_planet_radius, and then multiplying it by 100. My estimated radius differed from the published value by approximately 1.021%. This relatively small difference suggests that the transit depth measured from the Quarter 4 Kepler data produced a planetary radius that is close to the published value. The remaining difference may be caused by uncertainties in the measured transit depth, the choice of flattening window, the definition of the in-transit and out-of-transit regions, the use of a single Kepler quarter, and uncertainty in the adopted stellar radius. 
 
+# Comparing different quarters and its affects on the transits
+
+Up to this point, I have been using the fourth quarter, which is the fourth 90-day time segment that Kepler divided. In reality, Kepler-8 has a maximum of 18 quarters of data, which is approximately four years of observation. Each quarter can provide different data on the transit-depths, the ratio of the planet's radius (Rp) to the star's radius (R*), and etc. 
+
+After calculating the transit depth and graphing each quarter in its own light kurve, I was able to collect the following data:
+
+
+| Quarter | BLS period (d) | Transit depth |
+| ------: | -------------: | ------------: |
+|       0 |          3.520 |        0.901% |
+|       1 |          3.520 |        0.897% |
+|       2 |          3.520 |        0.676% |
+|       3 |          3.520 |        0.747% |
+|   **4** |      **3.520** |    **0.819%** |
+|       5 |          3.520 |        0.689% |
+|       6 |          3.520 |        0.688% |
+|       7 |          3.520 |        0.733% |
+|       8 |          3.520 |        0.897% |
+|       9 |          3.520 |        0.653% |
+|      10 |          3.520 |        0.704% |
+|      11 |          3.520 |        0.764% |
+|      12 |          3.520 |        0.874% |
+|      13 |          3.520 |        0.709% |
+|      14 |          3.520 |        0.887% |
+|      15 |          3.520 |        0.888% |
+|      16 |          3.520 |        0.898% |
+|      17 |          3.520 |        0.907% |
+
+Throughout the different quarters, our orbital period stays the same at approximately 3.520 days; however, unlike the orbital periods, the transit depths vary from 0.653% to 0.907%, almost a 30% difference between the depths. Because the Kepler spacecraft rotated 90 degrees every quarter in order for its solar panels to keep facing towards the sun, Kepler-8 fell on different CCD detectors sequentially over a year cycle. This likely reflects the differences in observational/systematic noise and the sensitivity of the depth measurements of light-cruve processing. I chose Quarter 4 as the primary dataset for detailed analysis because it provided a clear transit signal while keeping the analysis focused on a single quarter. 
+
+When I tried to stich all the quarters together, I had some difficulty in doing so; I'll come back to it later when I have the resources. 
 
 
 
